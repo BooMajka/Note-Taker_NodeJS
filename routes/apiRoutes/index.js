@@ -8,7 +8,7 @@ router.get("/notes", (req, res) => {
 //     if(err) {
 //     console.log(err);
 //   }
-  let results = data;
+  let results = db;
   console.log("api note get");
   res.json(results);
 // })
