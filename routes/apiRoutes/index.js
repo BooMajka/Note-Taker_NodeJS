@@ -1,12 +1,17 @@
 const router = require("express").Router();
-const db = require("../../db/db.json");
+let db = require("../../db/db.json");
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
 
 router.get("/notes", (req, res) => {
-  let results = db;
+//     fs.readFile('./db/db.json', "utf-8", (err, data) => {
+//     if(err) {
+//     console.log(err);
+//   }
+  let results = data;
   console.log("api note get");
   res.json(results);
+// })
 });
 
 
@@ -25,7 +30,11 @@ router.get("/db", (req, res) => {
 
 router.delete("/notes/:id", (req, res) => {
     const selected = req.params.id
-  res.send(selected);
+  const filteredArray = db.filter((el) => el.id !== selected); 
+fs.writeFile("./db/db.json", JSON.stringify(filteredArray), (err) =>
+  err ? console.error(err) : console.log("Note is deleted")
+);
+    db = filteredArray;
 });
 
 
